@@ -1,0 +1,15 @@
+_format_version: "3.0"
+services:
+  - name: inventory-service
+    url: http://inventory-service:80
+    routes:
+      - name: inventory-service-route
+        paths:
+          - /inventory-service
+
+  - name: booking-service
+    url: http://booking-service:80
+    routes:
+      - name: booking-service-route
+        paths:
+          - /booking-service
