@@ -4,7 +4,6 @@ from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
 
-
 DATABASE_URL = 'postgresql://postgres:web66@postgres/postgres'
 engine = create_engine(DATABASE_URL)
 SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
@@ -34,6 +33,12 @@ def test_read_movie(setup_db):
         data = response.json()
         assert data["id"] == 1
         assert data["name"] == "Inception"
+
+
+def test_get_movies(setup_db):
+    with httpx.Client(base_url="http://kong:8000/inventory-service") as client:
+        response = client.get("/")
+        assert response.status_code == 200
 
 
 def test_update_movie(setup_db):
